@@ -135,6 +135,13 @@ p{
   cursor:default;
 }
 
+#header-about-us-txt-1{
+  display:block;
+}
+
+#header-about-us-txt-2{
+  display:none;
+}
 
 
 /** --------FOOTER BEGIN -------- **/
@@ -206,7 +213,7 @@ p{
 /** --------HEADER BEGIN -------- **/
 
   #header{
-    height:215px;
+    height:210px;
   }
   
   #header-logo{
@@ -216,14 +223,19 @@ p{
   }
   
   #header-about-us{
-    display:none;
+    width:49%;
+    height:50px;
+    background-color:#3c3c3c;
+    margin:10px 0.5% 0.5% 0.5%;
+    float:left;
   } 
    
   #header-games{
-    width:94%;
+    width:49%;
     height:50px;
     background-color:#3c3c3c;
-    margin:3%;
+    margin:10px 0.5% 0.5% 0.5%;
+    float:right;
   }
   
   #header-games-img{
@@ -239,10 +251,17 @@ p{
     vertical-align:middle;
     display:inline-block;
   }
-
+  
+  #header-about-us-txt-1{
+    display:none;
+  }
+  
+  #header-about-us-txt-2{
+    display:block;
+  }
 /** --------ARTICLE BEGIN -------- **/
   .article-caption{
-    font-size:1.5em;
+    font-size:1.8em;
     padding:10px 0;
   }
   
