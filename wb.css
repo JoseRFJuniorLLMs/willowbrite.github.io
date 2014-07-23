@@ -196,16 +196,16 @@ p{
 
 }
 
-@media screen and (max-width: 680px){
+@media screen and (max-width: 768px){
 /** --------ARTICLE BEGIN -------- **/
-
-  .article{
-    text-align: center;
+  .article-caption{
+    font-size:2em;
+    padding:10px 0;
   }
-  
+
   .article-img{
-    float: none;
-    margin:30px auto 0 auto;
+    width:200px;
+    height:200px;
   }
 }
 
