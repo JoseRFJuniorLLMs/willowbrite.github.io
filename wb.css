@@ -247,7 +247,18 @@ p{
   }
   
   .article-img{
-    display:none;
+    margin:20px 10px 5px 20px;
+    float:left;
+    width:100px;
+    height:100px;
+  }
+  
+  .article-text{
+    margin:20px;
+  }
+  
+  .article{
+    text-align:left;
   }
   
 /** --------FOOTER BEGIN -------- **/
