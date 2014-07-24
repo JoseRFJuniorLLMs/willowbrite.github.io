@@ -21,4 +21,21 @@ function resize(){
     cover.style.height = 618 + 'px';
   }
   
+  if(winWidth <= 460){
+    goTo = "footer-text";
+  } else {
+    goTo = "article-container";
+  }
+}
+
+var isWebkit = (window.webkitURL !== null);
+var goTo = "article-container";
+
+function jumpTo(){
+  if (isWebkit) {
+      window.location.hash = goTo;
+  } else {
+      window.location.href = goTo;
+      window.location.href = goTo;
+  }
 }
