@@ -65,18 +65,21 @@ p{
   margin:15px 0 0 0;
   float:left;
   text-align: center;
+  cursor:default;
 }
 
 #header-about-us{
   float:right;
   margin:32px 0 0 0;
   text-align: center;
+  cursor:pointer;
 } 
  
 #header-games{
   float:right;
   margin:32px 20px 0 0;
   text-align: center;
+  cursor:pointer;
 }
 
 /** --------HEADER IMAGE BEGIN -------- **/
@@ -150,7 +153,8 @@ p{
 #footer-logo{
   margin:15px 0 0 0;
   float:left;
-  text-align: center; 
+  text-align: center;
+  cursor:default;
 }
 
 #footer-text{
