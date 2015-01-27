@@ -239,14 +239,10 @@ a{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
+}
    
 /** --------ARTICLE BEGIN -------- **/
 
-  #article-container{
-    top:0px;
-    width: 100%;
-}
   #article-container{
     top:0px;
     width: 100%;

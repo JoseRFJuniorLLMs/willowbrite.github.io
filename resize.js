@@ -28,7 +28,6 @@ function resize(){
   if(winWidth <= 980){
     cover.style.height = (winWidth * aspectRatio) + 'px';
     spacer.style.height = (winWidth * spacerRatio) + 'px';
-    console.log("resize");
   } else {
     cover.style.height = 550 + 'px';
     spacer.style.height = 400 + 'px';
