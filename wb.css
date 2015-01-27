@@ -135,7 +135,7 @@ a{
 
 /** --------ARTICLE BEGIN -------- **/
 
-#article-container{
+#about{
   position:relative;
   width: 980px;
   background-color:#fafafa;
@@ -198,7 +198,7 @@ a{
   cursor:default;
 }
 
-#footer-text{
+#contact_info{
   font-family: Arial;
   text-align: right;
   font-size:1.2em;
@@ -243,13 +243,13 @@ a{
    
 /** --------ARTICLE BEGIN -------- **/
 
-  #article-container{
+  #about{
     top:0px;
     width: 100%;
 }
   
 /** --------FOOTER BEGIN -------- **/
-  #footer-text{
+  #contact_info{
     margin-right:20px;
   }
 }
@@ -283,7 +283,7 @@ a{
   #header-about-us{
     width:49%;
     height:50px;
-    background-color:#f4c111;
+    background-color:#373737;
     margin:10px 0.5% 0.5% 0.5%;
     float:left;
   } 
@@ -291,7 +291,7 @@ a{
   #header-games{
     width:49%;
     height:50px;
-    background-color:#f4c111;
+    background-color:#373737;
     margin:10px 0.5% 0.5% 0.5%;
     float:right;
   }
@@ -347,7 +347,7 @@ a{
     display:none;
   }
 
-  #footer-text{
+  #contact_info{
     margin-right:10px auto;
     text-align:center;
   }

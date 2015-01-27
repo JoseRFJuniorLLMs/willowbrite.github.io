@@ -34,20 +34,23 @@ function resize(){
   }
   
   if(winWidth <= 460){
-    goTo = "footer-text";
+    goTo = "contact_info";
   } else {
-    goTo = "article-container";
+    goTo = "about";
   }
+  console.log(goTo);
 }
 
 var isWebkit = (window.webkitURL !== null);
-var goTo = "article-container";
+var goTo = "about";
 
 function jumpTo(){
   if (isWebkit) {
+      window.location.hash = 'someHashThatDoesntExist';
       window.location.hash = goTo;
   } else {
+      window.location.hash = 'someHashThatDoesntExist';
       window.location.href = goTo;
-      window.location.href = goTo;
+//      window.location.href = goTo;
   }
 }
