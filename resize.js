@@ -38,7 +38,6 @@ function resize(){
   } else {
     goTo = "about";
   }
-  console.log(goTo);
 }
 
 var isWebkit = (window.webkitURL !== null);
