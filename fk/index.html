@@ -9,6 +9,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="content-language" content="en" />
 
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="fk.css">
 	<!--<script src="fk.js"></script>-->
 	<script src="viewportSize.js"></script>
@@ -22,19 +25,45 @@
   <div id="button-scroll-left" class="button-scroll" onmousedown="setDoAnimation(true, -1);" onmouseup="setDoAnimation(false)" onmouseout="setDoAnimation(false)"></div>
   <div id="button-scroll-right" class="button-scroll" onmousedown="setDoAnimation(true, 1);" onmouseup="setDoAnimation(false)" onmouseout="setDoAnimation(false)"></div>
 
-  <div id="container">
-  
-    <div id="fk-logo"></div>
-    <div id="dog-start-animation"></div>
-    <div id="cloud-01" class="cloud-01"></div>
-    <div id="cloud-02" class="cloud-01"></div>
-    <div id="cloud-03" class="cloud-01"></div>
+
+  <div id="background"></div>
+
+  <div id="container-bg" class="container">
+<!-- frame 0 -->
+    <div id="sun-svg" class="still"></div>
+    <div id="cloud-01" class="still"></div>
+    <div id="cloud-03" class="still"></div>
+    <div id="cloud-04" class="still"></div>
+<!-- frame 1 -->
+    <div id="cloud-02" class="still"></div>
+<!-- frame 2 -->
+<!-- frame 3 -->
+    <div id="dog-chill" class="still"></div>
+    <div id="kart-chill" class="still"></div>
+    <div id="chest-chill" class="still"></div>
 
   </div>
-  
-  <div id="background"></div>
-  
-  <div id="sun-svg"></div>
+
+  <div id="container-fg" class="container">
+<!-- frame 0 -->
+    <div id="dog-start" class="still"></div>
+    <div id="fk-logo" class="still"></div>
+    <div id="btn-screens" class="btn"></div>
+    <div id="btn-video" class="btn"></div>
+    <div id="btn-download" class="btn"></div>
+    <p id="promotional-txt">"An adventure you have to<br>be a part of"</p>
+<!-- frame 1 -->
+    <div id="arrow-down" class="still"></div>
+    <p id="promotional-txt-3">Discover hidden<br>goods</p>
+<!-- frame 2 -->
+<!-- frame 3 -->
+    <div id="slot-1" class="still"></div>
+    <div id="slot-2" class="still"></div>
+    <div id="slot-3" class="still"></div>
+    <div id="cloud-2" class="still"></div>
+    <div id="cloud-3" class="still"></div>
+    <p id="promotional-txt-2">"This is what life<br>is all about"</p>
+  </div>
 
 </body>
 </html>

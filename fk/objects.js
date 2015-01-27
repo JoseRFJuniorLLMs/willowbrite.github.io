@@ -1,55 +1,58 @@
+function keyframes(){
+  this.objects = [];
+  this.keyframes = [];
+  
+  this.addObject = function(obj){
+    this.objects.push(obj);
+  };
+}
+
+function Keyframe(a, x, y){
+  this.active = a;
+  this.x = x;
+  this.y = y;
+}
+
 function Still(mainObject){
   this.mainObject = mainObject;
-  this.left;
-  this.top;
   this.width;
   this.height;
-  this.cLeft;
-  this.cTop;
   this.cWidth;
   this.cHeight;
-  this.beginOffset = 0;
-  this.endOffset = 0;
-  this.visible = true;
-  this.leftOffset = 0;
-  this.topOffset = 0;
-  this.cLeftOffset;
-  this.cTopOffset;
-  
-  this.setParameters = function(x,y,w,h){
-    this.left = x;
-    this.top = y;
+  this.keyframes = [];
+  this.cKeyframes = [];
+
+  //f-frames, a-active, xa-startx, ya-starty, xb-endX, yb-endY
+  this.addKeyframe = function(f, x, y){
+    this.keyframes[f] = new Keyframe(false, x, y);
+  };
+
+  this.setParameters = function(w,h){
     this.width = w;
     this.height = h;
-    this.endOffset = bezierPointCount;
-  };
-  
-  this.setAnimation = function(start, end, offsetX, offsetY){
-    this.beginOffset = start;
-    this.endOffset = end;
-    this.leftOffset = offsetX;
-    this.topOffset = offsetY;
-    if(this.beginOffset > 0){
-      this.visible = false;
-    } else {this.visible = true;}
   };
   
   this.updateScale = function(scaleFactor){
-    this.cLeft = this.left * scaleFactor;
-    this.cTop = this.top * scaleFactor;
+    var activeKeyframe = 999;
+    this.cKeyframes = [];
+
+    for(j=0; j< this.keyframes.length; j++){
+      if(this.keyframes[j]){
+        this.cKeyframes[j] = new Keyframe(false, this.keyframes[j].x * scaleFactor,
+        this.keyframes[j].y * scaleFactor);
+        // this.keyframes[j].x = this.keyframes[j].x * scaleFactor;
+        // this.keyframes[j].y = this.keyframes[j].y * scaleFactor;
+        if(activeKeyframe == 999){
+          activeKeyframe = j;
+        }
+      }
+    }
+    
     this.cWidth = this.width * scaleFactor;
     this.cHeight = this.height * scaleFactor;
-    this.cLeftOffset = this.cLeft - (this.leftOffset * scaleFactor);
-    this.cTopOffset = this.cTop - (this.topOffset * scaleFactor);
     
-    console.log("left.:"+this.cLeft+"   top.:"+this.cTop);
-    console.log("leftOffset.:"+this.cLeftOffset+"    topOffset.:"+this.cTopOffset);
-    
-    if(!this.visible){
-      this.move(this.cLeftOffset, this.cTopOffset);
-    } else {
-      this.move(this.cLeft, this.cTop); 
-    }
+    this.move(this.cKeyframes[activeKeyframe].x, this.cKeyframes[activeKeyframe].y);
+
     this.mainObject.style.width = this.cWidth + 'px';
     this.mainObject.style.height = this.cHeight + 'px';
   };
@@ -57,6 +60,34 @@ function Still(mainObject){
   this.move = function(x,y){
     this.mainObject.style.left = x + 'px';
     this.mainObject.style.top = y + 'px';
+  };
+  
+  this.moveWithEase = function(k){
+    var t = 0.0;
+    var dur = 0.5;
+    
+    var startX = parseInt(this.mainObject.style.left);
+    var startY = parseInt(this.mainObject.style.top);
+    var distX = this.cKeyframes[k].x - startX;
+    var distY = this.cKeyframes[k].y - startY;
+    
+    function animate(o){
+      t+=0.02;
+      
+      o.style.left = easeInOut(t, startX, distX, dur) + 'px';
+      o.style.top = easeInOut(t, startY, distY, dur) + 'px';
+      
+      if(t <= dur){
+        requestAnimFrame(function(){animate(o);});
+      }
+    }
+    animate(this.mainObject);
+  };
+  
+  this.moveToFrame = function(k){
+    if(this.cKeyframes[k]){
+      this.moveWithEase(k);
+    }
   };
 }
 

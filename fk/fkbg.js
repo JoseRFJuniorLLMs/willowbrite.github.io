@@ -1,12 +1,24 @@
 var background;                           //background div
 var dogStartAnim;
 var container;
+var containerBg;
 var doAnimation = false;                  //enable/disable background animation
 var bezierData = [];                      //array of bezier cordinates
 var bezierPointCount = 250;               //resolution of bezier
 var fkLogo;
-var dog01;
 var stills = [];
+var activeKeyframe = 0;
+var keyframes = [
+                  {"from":-1,"to":10},   //frame 1
+                  {"from":11,"to":44},
+                  {"from":45,"to":65},   //frame 2
+                  {"from":66,"to":152},
+                  {"from":153,"to":163}, //frame 3
+                  {"from":164,"to":232},
+                  {"from":233,"to":251}  //frame 4
+                ];
+
+
 var sun;
 
 //play - play/stop animation, increment - speed of animation 
@@ -24,44 +36,46 @@ function loop(){
     scroll();
   }
   
-  dog01.updateAnimation();
   requestAnimFrame(loop);
+}
+
+function setKeyframeActive(k){
+  
+  for(i=0; i< stills.length; i++){
+    stills[i].moveToFrame(k);
+  }
+  
 }
 
 function scroll(){
   
-  if(animation.increment > 0 && viewbox.offsetX < bezierPointCount){
+  // keep scrolling within the limits
+  if(animation.increment > 0 && viewbox.offsetX < bezierPointCount ||
+                                animation.increment < 0 && viewbox.offsetX > 0)
+  {
     viewbox.offsetX+= animation.increment;
-    for(i = 0; i < stills.length; i++){
-      if(stills[i].visible === true && stills[i].endOffset == viewbox.offsetX){
-        stills[i].visible = false;
-        moveObject(stills[i], stills[i].cLeftOffset, stills[i].cTopOffset, 0.5);
-        console.log("move out 1");
-        return;
-      } 
-      if(stills[i].visible === false && stills[i].beginOffset == viewbox.offsetX){
-        stills[i].visible = true;
-        moveObject(stills[i], stills[i].cLeft, stills[i].cTop, 0.5);
-        console.log("move in 1");
-      }
+    if(keyframes[activeKeyframe].from <= viewbox.offsetX && keyframes[activeKeyframe].to >= viewbox.offsetX){
+      
+    } else {
+      console.log("was here man");
+      if(keyframes[activeKeyframe-1]){
+      if(keyframes[activeKeyframe-1].from <= viewbox.offsetX && keyframes[activeKeyframe-1].to >= viewbox.offsetX){
+          activeKeyframe-=1;
+          setKeyframeActive(activeKeyframe);
+      }}
+      if(keyframes[activeKeyframe+1]){
+      if(keyframes[activeKeyframe+1].from <= viewbox.offsetX && keyframes[activeKeyframe+1].to >=- viewbox.offsetX){
+          activeKeyframe+=1;
+          setKeyframeActive(activeKeyframe);
+      }}
     }
-  }
-
-  if(animation.increment < 0 && viewbox.offsetX > 0){
-    viewbox.offsetX+= animation.increment;
-    for(i = 0; i < stills.length; i++){
-      if(stills[i].visible === true && stills[i].beginOffset == viewbox.offsetX){
-        stills[i].visible = false;
-        moveObject(stills[i], stills[i].cLeftOffset, stills[i].cTopOffset, 0.5);
-        console.log("move out 2");
-        return;
-      } 
-      if(stills[i].visible === false && stills[i].endOffset == viewbox.offsetX){
-        stills[i].visible = true;
-        console.log('move in 2');
-        moveObject(stills[i], stills[i].cLeft, stills[i].cTop, 0.5);  
-      }
-    }
+    
+    // for(i=0; i<keyframes.length; i++){
+    //   // check if we are in frames or between frames
+    //   if(keyframes[i].from < viewbox.offsetX && keyframes[i].to > viewbox.offsetX){
+    //     setKeyframeActive(i);
+    //   }
+    // }
   }
   
   updateOffset();
@@ -71,8 +85,8 @@ function updateOffset(){
   var x = bezierData[viewbox.offsetX].x + 'px';
   var y = bezierData[viewbox.offsetX].y + 'px';
   
-  container.style.left = x;
-  container.style.top = y;
+  container.style.left = containerBg.style.left = x;
+  container.style.top = containerBg.style.top = y;
   
   background.style.backgroundPosition = x + ' ' + y;
 }
@@ -94,6 +108,7 @@ function cubicBezier(x1,y1,x3,y3,direction,stepVariable,dataArray){
 }
 
 function resize(){
+  console.log("resize called");
   //get window size
   viewbox.originalWidth = viewportSize.getWidth();
   viewbox.originalHeight = viewportSize.getHeight();
@@ -123,7 +138,6 @@ function resize(){
     stills[i].updateScale(viewbox.aspectratio);
   }
   
-  dog01.updateScale(viewbox.aspectratio);
   updateOffset();
 }
 
@@ -133,34 +147,141 @@ window.onresize = function(){
 
 window.onload = function(){
   background = document.getElementById('background');
-  container = document.getElementById('container');
-
-  dog01 = new Animation(document.getElementById('dog-start-animation'));
-  dog01.setParameters(175,294,154,126,20);
+  container = document.getElementById('container-fg');
+  containerBg = document.getElementById('container-bg');
+  
+  var n = 0;
+  
+//-------------------------------------------------------------------
+//                      FRAME 0
+//-------------------------------------------------------------------
   
   stills.push(new Still(document.getElementById('fk-logo')));
-  stills[0].setParameters(114, 14, 274, 140);
-  stills[0].setAnimation(-1, 2, 0, 200);
+  stills[n].setParameters(342, 174);
+  stills[n].addKeyframe(0, 82, 7);
+  stills[n++].addKeyframe(1, 82, -100);
+  
+  stills.push(new Still(document.getElementById('dog-start')));
+  stills[n].setParameters(154, 125);
+  stills[n].addKeyframe(0, 175, 295);
+  stills[n++].addKeyframe(1, 175, -127);
+  
+  stills.push(new Still(document.getElementById('btn-screens')));
+  stills[n].setParameters(110, 141);
+  stills[n].addKeyframe(0, 82, 650);
+  stills[n++].addKeyframe(1, -200, 650);
+
+  stills.push(new Still(document.getElementById('btn-video')));
+  stills[n].setParameters(110, 141);
+  stills[n].addKeyframe(0, 204, 650);
+  stills[n++].addKeyframe(1, -200, 650);
+
+  stills.push(new Still(document.getElementById('btn-download')));
+  stills[n].setParameters(110, 141);
+  stills[n].addKeyframe(0, 326, 650);
+  stills[n++].addKeyframe(1, -200, 650);
 
   stills.push(new Still(document.getElementById('sun-svg')));
-  stills[1].setParameters(0, -400, 1246, 912);
-  stills[1].setAnimation(-1, 10, -400, -400);
+  stills[n].setParameters(1246, 912);
+  stills[n].addKeyframe(0, 220, -350);
+  stills[n].addKeyframe(2, 500, -50);
+  stills[n].addKeyframe(4, 1400, 250);
+  stills[n++].addKeyframe(6, 2380, 780);
   
   stills.push(new Still(document.getElementById('cloud-01')));
-  stills[2].setParameters(350, 150, 305, 109);
-  stills[2].setAnimation(-1, 20, 600, 0);
-  
-  stills.push(new Still(document.getElementById('cloud-02')));
-  stills[3].setParameters(1250, 500, 305, 109);
-  stills[3].setAnimation(70, 150, 0, 400);
+  stills[n].setParameters(226, 81);
+  stills[n].addKeyframe(0, 700, 200);  
+  stills[n++].addKeyframe(1, -310, 200);
   
   stills.push(new Still(document.getElementById('cloud-03')));
-  stills[4].setParameters(2700, 900, 305, 109);
-  stills[4].setAnimation(230, 251, 0, 300);
+  stills[n].setParameters(226, 81);
+  stills[n].addKeyframe(0, -20, -10);  
+  stills[n++].addKeyframe(1, -310, -10);
   
-  // stills.push(new Still(document.getElementById('cloud-02')));
-  // stills[4].setParameters(350, 150, 305, 109);
-  // stills[4].setAnimation(-1, 35, 400, 0);
+  stills.push(new Still(document.getElementById('cloud-04')));
+  stills[n].setParameters(103, 35);
+  stills[n].addKeyframe(0, 420, 280);  
+  stills[n++].addKeyframe(1, -150, 280);
+  
+  stills.push(new Still(document.getElementById('promotional-txt')));
+  stills[n].setParameters(500, 109);
+  stills[n].addKeyframe(0, 350, 380);  
+  stills[n++].addKeyframe(1, -405, 380);
+  
+//-------------------------------------------------------------------
+//                      FRAME 1
+//-------------------------------------------------------------------
+  
+  stills.push(new Still(document.getElementById('cloud-02')));
+  stills[n].setParameters(226, 81);
+  stills[n].addKeyframe(1, 0, 500);
+  stills[n].addKeyframe(2, 500, 500);
+  stills[n++].addKeyframe(3, 1200, 500);
+  
+  stills.push(new Still(document.getElementById('promotional-txt-3')));
+  stills[n].setParameters(400, 109);
+  stills[n].addKeyframe(1, 560, -200);
+  stills[n].addKeyframe(2, 560, 340);  
+  stills[n++].addKeyframe(3, 560, -200);
+  
+  stills.push(new Still(document.getElementById('arrow-down')));
+  stills[n].setParameters(68, 134);
+  stills[n].addKeyframe(1, 730, -200);
+  stills[n].addKeyframe(2, 730, 450);  
+  stills[n++].addKeyframe(3, 730, -200);
+//-------------------------------------------------------------------
+//                      FRAME 2
+//-------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------
+//                      FRAME 3
+//-------------------------------------------------------------------
+  stills.push(new Still(document.getElementById('dog-chill')));
+  stills[n].setParameters(180, 136);
+  stills[n].addKeyframe(6, 2826, 1276);  
+  stills[n++].addKeyframe(5, 2826, 1500);
+  
+  stills.push(new Still(document.getElementById('kart-chill')));
+  stills[n].setParameters(182, 85);
+  stills[n].addKeyframe(6, 3036, 1306);  
+  stills[n++].addKeyframe(5, 3036, 1500);
+  
+  stills.push(new Still(document.getElementById('chest-chill')));
+  stills[n].setParameters(121, 56);
+  stills[n].addKeyframe(6, 3000, 1432);  
+  stills[n++].addKeyframe(5, 3000, 1500);
+  
+  stills.push(new Still(document.getElementById('slot-1')));
+  stills[n].setParameters(204, 120);
+  stills[n].addKeyframe(6, 2650, 750);  
+  stills[n++].addKeyframe(5, 2650, 300);
+  
+  stills.push(new Still(document.getElementById('slot-2')));
+  stills[n].setParameters(204, 120);
+  stills[n].addKeyframe(6, 2874, 750);  
+  stills[n++].addKeyframe(5, 2874, 400);
+  
+  stills.push(new Still(document.getElementById('slot-3')));
+  stills[n].setParameters(204, 120);
+  stills[n].addKeyframe(6, 3094, 750);  
+  stills[n++].addKeyframe(5, 3094, 500);
+  
+  stills.push(new Still(document.getElementById('promotional-txt-2')));
+  stills[n].setParameters(500, 300);
+  stills[n].addKeyframe(6, 2450, 1250);  
+  stills[n++].addKeyframe(5, 3500, 1250);
+  
+  stills.push(new Still(document.getElementById('cloud-2')));
+  stills[n].setParameters(260, 73);
+  stills[n].addKeyframe(6, 2994, 1020);  
+  stills[n++].addKeyframe(5, 3500, 1020);
+  
+  stills.push(new Still(document.getElementById('cloud-3')));
+  stills[n].setParameters(103, 35);
+  stills[n].addKeyframe(6, 2720, 1100);  
+  stills[n++].addKeyframe(5, 3500, 1100);
+  
   
   resize();
   loop();

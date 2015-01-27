@@ -6,35 +6,10 @@ html{
   border:0;
 }
 
-#bgsvg{
-  padding:0;
-  margin:0;
-  border:0;
-}
-
-#sun-svg{
-  position:absolute;
-  padding:0;
-  margin:0;
-  width: 100px;
-  height: 100px;
-  background-image: url("svg/sun.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: -10;
-}
-
-#svg-image{
-  padding:0;
-  margin:0;
-  border:0;
-}
-
 body {
   width:100%;
   height:100%;
-  background-color:#b3aed2;
+  background-color:#bcbee9;
   padding:0;
   margin:0;
   border:0;
@@ -51,64 +26,135 @@ img{
 p{
   margin:0;
   padding:0;
-  font-size: 22.5px;
-  color: #88f7e3;
+  font-family: 'Luckiest Guy', cursive;
+/*font-family: 'Aclonica', sans-serif;*/
+  /*font-family: 'Roboto', sans-serif;*/
+  text-align:center;
+  font-size: 30px;
+  position:absolute;
+  color:#9395b1;
+}
+
+.button-scroll{
+  position:absolute;
+  top:42%;
+  padding:4%;
+  cursor:pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index:10;
+}
+
+#button-scroll-left{
+  left:2%;
+  background-image:url("svg/arrow_left.svg");
+}
+
+#button-scroll-right{
+  left:90%;
+  background-image:url("svg/arrow_right.svg");
+}
+
+.btn{
+  position:absolute;
+  width:110px;
+  height:141px;
+  cursor:pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#btn-screens{
+  background-image:url("img/btn_screens.png");
+}
+#btn-video{
+  background-image:url("img/btn_video.png");
+}
+#btn-download{
+  background-image:url("img/btn_download.png");
 }
 
 #background{
   width:100%;
   height:100%;
-  background-image:url("svg/background.svg");
+  background-image:url("svg/background_v2.svg");
   background-repeat: no-repeat;
   background-position: 0 0;
-  z-index:1;
+  z-index:2;
 }
 
-.button-scroll{
-  position:absolute;
-  top:40%;
-  padding:2.5%;
-  background-color:#706540;
-  cursor:pointer;
-  z-index:10;
-}
-
-#button-scroll-left{
-  left:5%;
-}
-
-#button-scroll-right{
-  left:90%;
-}
-
-#fk-logo{
-  position:absolute;
-  background-image:url("img/fklogo.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-#dog-start-animation{
-  position:absolute;
-  width:154px;
-  height:126px;
-  background-image: url("img/dogStartAnim.png");
-}
-
-#container{
+.container{
   position:absolute;
   left:0;
   top:0;
-  z-index:0;
 }
 
-.cloud-01{
-  background-image: url("img/cloud_01.png");
+#container-fg{
+  z-index:3;
+}
+
+#container-bg{
+  z-index:-1;
+}
+
+.still{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   position:absolute;
-  width:305px;
-  height:109px;
+}
+
+/*--------------- FRAME 0 -----------------*/
+#sun-svg{
+  background-image: url("svg/sun.svg");
+}
+#fk-logo{
+  background-image:url("img/fklogo.png");
+}
+#cloud-01{
+  background-image: url(img/cloud_01.png);
+}
+#cloud-03{
+  background-image: url(img/cloud_01.png);
+}
+#cloud-04{
+  background-image: url(img/cloud_03.png);
+}
+#dog-start{
+  background-image: url(img/dogStart.png);
+}
+/*--------------- FRAME 1 -----------------*/
+#cloud-2{
+  background-image: url(img/cloud_02.png);
+}
+#arrow-down{
+  background-image: url(svg/arrow_down.svg);
+}
+/*--------------- FRAME 2 -----------------*/
+
+/*--------------- FRAME 3 -----------------*/
+#dog-chill{
+  background-image: url(img/dogChill.png);
+  width:180px; height:136px;
+}
+#kart-chill{
+  background-image: url(img/kartChill.png);
+  width:182px; height:85px;
+}
+#chest-chill{
+  background-image: url(img/chestChill.png);
+  width:121px; height:56px;
+}
+#slot-1{
+  background-image: url(img/awardSlot1.png);
+}
+#slot-2{
+  background-image: url(img/awardSlot2.png);
+}
+#slot-3{
+  background-image: url(img/awardSlot3.png);
+}
+#cloud-3{
+  background-image: url(img/cloud_03.png);
 }
